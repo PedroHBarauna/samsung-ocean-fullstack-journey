@@ -31,8 +31,12 @@ const lista = [
 ];
 //Endpoint READ ALL - [GET]
 app.get("/pontuacoes", function(req, res){
-  res.send("Ler todas as pontuações");
+  res.send(lista);
 }); 
 //Endpoint CREATE - [POST] 
+
+app.post("/pontuacoes", function(req, res){
+  res.send("Criar uma ponutação");
+}); 
 
 app.listen(3000);
