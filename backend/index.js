@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 
+//sinalizar express que estamos utilizando json
+
+app.use(express.json());
+
 app.get('/', function (req, res) {
   res.send('Hello World');
 });
@@ -36,7 +40,13 @@ app.get("/pontuacoes", function(req, res){
 //Endpoint CREATE - [POST] 
 
 app.post("/pontuacoes", function(req, res){
-  res.send("Criar uma ponutação");
+  const item = req.body;
+  res.send("Criar uma pontuação");
+  lista.push({
+    id: lista.length+1,
+    nome: item.nome,
+    pontos: item.pontos,
+  });
 }); 
 
 app.listen(3000);
