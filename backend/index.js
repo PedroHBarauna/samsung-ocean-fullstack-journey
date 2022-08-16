@@ -1,52 +1,51 @@
 const express = require('express');
-const app = express();
+const { MongoClient } = require('mongodb');
+
+const url = "mongodb://localhost:27017";
+const dbName = "jornada-fullstack-agosto-22"
+
+//realizar conexão com MongoClient
+//Mongo client -> MongoDatabse -> Mongo Collection
+//conexões com o cliente podem levar um tempo pra concluir.
+//Portanto utilizamremos as promises do JS. 
+
+
 
 //sinalizar express que estamos utilizando json
+async function main(){
 
-app.use(express.json());
+  const client = await MongoClient.connect(url);
+  const db = client.db(dbName);
+  const collection = db.collection("pontuacoes");
 
-app.get('/', function (req, res) {
-  res.send('Hello World');
-});
+  const app = express();
 
-app.get('/oi', function(req, res){
-    res.send('Olá Mundo');
-});
+  app.use(express.json());
 
-// Nosso backend armazena as pontuaçÕes jogadas
-//criar lista com as pontuações
+  // Nosso backend armazena as pontuaçÕes jogadas
+  //criar lista com as pontuações
 
-const lista = [
-  {
-    "id": 1,
-    "nome": "Pedro",
-    "pontos": 90,
-  },
-  {
-    "id": 2,
-    "nome": "Paulo",
-    "pontos": 120,
-  },
-  {
-    "id": 3,
-    "nome": "Cátia",
-    "pontos": 50,
-  },
-];
-//Endpoint READ ALL - [GET]
-app.get("/pontuacoes", function(req, res){
-  res.send(lista);
-}); 
-//Endpoint CREATE - [POST] 
+  //Endpoint READ ALL - [GET]
+  app.get("/pontuacoes", async function(req, res){
+    const items = await collection
+    .find()
+    .sort({ pontos: -1 })
+    .limit(10)
+    .toArray();
+    res.send(items);
+  }); 
+  //Endpoint CREATE - [POST] 
 
-app.post("/pontuacoes", function(req, res){
-  const item = req.body;
-  res.send("Criar uma pontuação");
-  lista.push({
-    id: lista.length+1,
-    nome: item.nome,
-    pontos: item.pontos,
-  });
-}); 
+  app.post("/pontuacoes", async function(req, res){
+    const item = req.body;
+    await collection.insertOne(item); 
 
-app.listen(3000);
+    res.send(item);
+
+  }); 
+
+  app.listen(3000);
+
+}
+
+main();
