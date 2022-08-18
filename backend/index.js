@@ -22,6 +22,10 @@ async function main(){
 
   app.use(express.json());
 
+
+  app.get("/", function(req, res){
+    res.send("Hello World")
+  }); 
   // Nosso backend armazena as pontuaçÕes jogadas
   //criar lista com as pontuações
 
