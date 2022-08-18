@@ -1,8 +1,9 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 
-const url = "mongodb://localhost:27017";
-const dbName = "jornada-fullstack-agosto-22"
+//const url = "mongodb://localhost:27017";
+const url = "mongodb+srv://admin:CPr6UTMcf2C3dUbl@cluster0.fi33ipb.mongodb.net/"
+const dbName = "fullstack-mario-game"
 
 //realizar conexão com MongoClient
 //Mongo client -> MongoDatabse -> Mongo Collection
@@ -13,11 +14,10 @@ const dbName = "jornada-fullstack-agosto-22"
 
 //sinalizar express que estamos utilizando json
 async function main(){
-/*
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
   const collection = db.collection("pontuacoes");
-*/
+
   const app = express();
 
   app.use(express.json());
