@@ -13,11 +13,11 @@ const dbName = "jornada-fullstack-agosto-22"
 
 //sinalizar express que estamos utilizando json
 async function main(){
-
+/*
   const client = await MongoClient.connect(url);
   const db = client.db(dbName);
   const collection = db.collection("pontuacoes");
-
+*/
   const app = express();
 
   app.use(express.json());
@@ -45,7 +45,7 @@ async function main(){
   }); 
 
   app.listen(process.env.PORT || 3000, ()=>{
-    console.log("aplicação rodando");
+    console.log("Aplicação rodando");
   });
 
 }
