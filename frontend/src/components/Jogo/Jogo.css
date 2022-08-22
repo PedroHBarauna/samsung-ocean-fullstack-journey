@@ -9,3 +9,22 @@
     top:30px;
     left:50%;
 }
+.mario{
+    width:150px;
+    position: absolute;
+    bottom:50px;
+}
+.cano{
+    width:120px;
+    position: absolute;
+    bottom: 50px;
+    left:60%;
+}
+
+.chao{
+    background: #43cb41;
+    height: 50px;
+    width:100vw;
+    position: absolute;
+    bottom:0px;
+}

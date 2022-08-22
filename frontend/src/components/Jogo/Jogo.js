@@ -1,9 +1,14 @@
 import "./Jogo.css"
 import clouds from "../../assets/clouds.png"
+import mario from "../../assets/mario.gif"
+import cano from "../../assets/pipe.png"
 
 function Jogo(){
     return <div className="jogo">
         <img className="nuvens" src={clouds}  alt="Nuvens"></img>
+        <img className="mario" src={mario} alt="Mario"></img>
+        <img className="cano" src={cano}></img>
+        <div className="chao"></div>
     </div>
 }
 
