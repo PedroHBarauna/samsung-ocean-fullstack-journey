@@ -3,7 +3,7 @@ import clouds from "../../assets/clouds.png"
 
 function Jogo(){
     return <div className="jogo">
-        <img src={clouds}></img>
+        <img className="nuvens" src={clouds}  alt="Nuvens"></img>
     </div>
 }
 
