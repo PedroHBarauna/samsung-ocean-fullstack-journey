@@ -29,7 +29,7 @@
     animation-timing-function: linear;
     */
   
-    animation: mover-direita-para-esquerda infinite 2s linear;
+    animation: mover-direita-para-esquerda infinite 4s linear;
   }
   
   @keyframes mover-direita-para-esquerda {
@@ -54,12 +54,17 @@
     animation: mario-pulo 0.7s;
   }
 
-  @keyframes mario-pulo{
-    from{
-        bottom:30px;
+  @keyframes mario-pulo {
+    from {
+      bottom: 30px;
     }
-    to{
-        bottom:150px;
+  
+    50% {
+      bottom: 150px;
+    }
+  
+    to {
+      bottom: 30px;
     }
   }
   

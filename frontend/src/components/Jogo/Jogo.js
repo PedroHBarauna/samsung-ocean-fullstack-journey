@@ -10,9 +10,17 @@ function Jogo() {
     const [estaPulando, setEstaPulando] = useState(false);
 
     document.onkeydown = function(){
-        console.log("On Key Down")
-
         setEstaPulando(true);
+
+        setTimeout(function(){
+            setEstaPulando(false);
+        }, 700);
+    };
+
+    let marioClassName = "mario";
+
+    if(estaPulando){
+        marioClassName = "mario mario-pulo";
     }
 
     console.log(18, { estaPulando });
@@ -20,7 +28,7 @@ function Jogo() {
     return (
     <div className="jogo">
         <img className="nuvens" src={clouds}  alt="Nuvens"></img>
-        <img className="mario" src={mario} alt="Mario"></img>
+        <img className={marioClassName} src={mario} alt="Mario"></img>
         <img className="cano" src={cano} alt="Cano"></img>
         <div className="chao"></div>
     </div>      
