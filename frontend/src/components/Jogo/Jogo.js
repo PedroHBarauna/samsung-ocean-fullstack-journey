@@ -2,12 +2,36 @@ import "./Jogo.css"
 import clouds from "../../assets/clouds.png"
 import mario from "../../assets/mario.gif"
 import cano from "../../assets/pipe.png"
-import { useState } from "react"
+import { useRef, useState } from "react"
 
 function Jogo() {
-    console.log("Componente de Jogo Renderizado");
 
     const [estaPulando, setEstaPulando] = useState(false);
+
+    const marioRef = useRef();
+    const canoRef = useRef();
+
+    function marioEstaNoCano(){
+        const mario = marioRef.current;
+        const cano = canoRef.current;
+
+        if(!mario || !cano){
+            return;
+        }
+
+        return (
+            cano.offsetLeft > mario.offsetLeft &&
+            cano.offsetLeft < mario.offsetLeft + mario.offsetWidth &&
+            mario.offsetTop + mario.offsetHeight > cano.offsetTop       
+        );
+    }
+
+    setInterval(function(){
+        const valor = marioEstaNoCano();
+
+        console.log("Mario está no cano?", valor);
+    }, 100);
+
 
     document.onkeydown = function(){
         setEstaPulando(true);
@@ -23,13 +47,11 @@ function Jogo() {
         marioClassName = "mario mario-pulo";
     }
 
-    console.log(18, { estaPulando });
-
     return (
     <div className="jogo">
         <img className="nuvens" src={clouds}  alt="Nuvens"></img>
-        <img className={marioClassName} src={mario} alt="Mario"></img>
-        <img className="cano" src={cano} alt="Cano"></img>
+        <img ref={marioRef} className={marioClassName} src={mario} alt="Mario"></img>
+        <img ref={canoRef} className="cano" src={cano} alt="Cano"></img>
         <div className="chao"></div>
     </div>      
     );
