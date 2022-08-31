@@ -5,7 +5,7 @@ import cano from "../../assets/pipe.png"
 import gameOver from "../../assets/game-over.png"
 import { useEffect, useRef, useState } from "react"
 
-function Jogo() {
+function Jogo(props) {
 
     const [estaPulando, setEstaPulando] = useState(false);
     const [estaMorto, setEstaMorto] = useState(false);
@@ -28,17 +28,22 @@ function Jogo() {
             mario.offsetTop + mario.offsetHeight > cano.offsetTop       
         );
     }
+    useEffect(
+        function(){
+            const interval = setInterval(function(){
+                const estaNoCano = marioEstaNoCano();
 
-    setInterval(function(){
-        const estaNoCano = marioEstaNoCano();
+                if(!estaNoCano || estaMorto){
+                    return;
+                }
 
-        if(!estaNoCano){
-            return;
-        }
-
-        //console.log("Mario está no cano?", valor);
-        setEstaMorto(true);
-    }, 100);
+                setEstaMorto(true);
+                props.onDied();
+            }, 100);
+            return () => clearInterval(interval);
+        },
+        [estaMorto]
+    );
 
     useEffect(
         function(){  
@@ -52,7 +57,7 @@ function Jogo() {
             }, 500);
             
             return () => clearInterval(interval);
-    }, 
+        }, 
         [estaMorto, pontos]
     );
 
