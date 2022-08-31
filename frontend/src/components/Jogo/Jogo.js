@@ -2,11 +2,14 @@ import "./Jogo.css"
 import clouds from "../../assets/clouds.png"
 import mario from "../../assets/mario.gif"
 import cano from "../../assets/pipe.png"
-import { useRef, useState } from "react"
+import gameOver from "../../assets/game-over.png"
+import { useEffect, useRef, useState } from "react"
 
 function Jogo() {
 
     const [estaPulando, setEstaPulando] = useState(false);
+    const [estaMorto, setEstaMorto] = useState(false);
+    const [pontos, setPontos] = useState(0);
 
     const marioRef = useRef();
     const canoRef = useRef();
@@ -27,10 +30,30 @@ function Jogo() {
     }
 
     setInterval(function(){
-        const valor = marioEstaNoCano();
+        const estaNoCano = marioEstaNoCano();
 
-        console.log("Mario está no cano?", valor);
+        if(!estaNoCano){
+            return;
+        }
+
+        //console.log("Mario está no cano?", valor);
+        setEstaMorto(true);
     }, 100);
+
+    useEffect(function(){  
+        
+        const interval = setInterval(function () {
+        if(estaMorto){
+            return;
+        }
+
+        setPontos(pontos + 1);
+
+        }, 500);
+        
+        return () => clearInterval(interval);
+    }, [estaMorto, pontos]);
+
 
 
     document.onkeydown = function(){
@@ -41,17 +64,32 @@ function Jogo() {
         }, 700);
     };
 
-    let marioClassName = "mario";
+    let marioClassName = "mario"
 
     if(estaPulando){
         marioClassName = "mario mario-pulo";
     }
 
+    const marioImage = estaMorto ? gameOver : mario;
+    const pararAnimacao = estaMorto ? "parar-animacao" : "";
+
     return (
     <div className="jogo">
-        <img className="nuvens" src={clouds}  alt="Nuvens"></img>
-        <img ref={marioRef} className={marioClassName} src={mario} alt="Mario"></img>
-        <img ref={canoRef} className="cano" src={cano} alt="Cano"></img>
+        <img className={"nuvens " + pararAnimacao}  src={clouds}  alt="Nuvens"></img>
+
+        <img 
+            ref={marioRef} 
+            className={marioClassName} 
+            src={marioImage} 
+            alt="Mario"
+        />
+        <img 
+            ref={canoRef} 
+            className={"cano " + pararAnimacao} 
+            src={cano} 
+            alt="Cano"
+        />
+
         <div className="chao"></div>
     </div>      
     );
