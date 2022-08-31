@@ -40,19 +40,21 @@ function Jogo() {
         setEstaMorto(true);
     }, 100);
 
-    useEffect(function(){  
-        
-        const interval = setInterval(function () {
-        if(estaMorto){
-            return;
-        }
+    useEffect(
+        function(){  
+            const interval = setInterval(function () {
+            if(estaMorto){
+                return;
+            }
 
-        setPontos(pontos + 1);
+            setPontos(pontos + 1);
 
-        }, 500);
-        
-        return () => clearInterval(interval);
-    }, [estaMorto, pontos]);
+            }, 500);
+            
+            return () => clearInterval(interval);
+    }, 
+        [estaMorto, pontos]
+    );
 
 
 
