@@ -1,5 +1,6 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const cors = require('cors');
 
 //const url = "mongodb://localhost:27017";
 const url = "mongodb+srv://admin:CPr6UTMcf2C3dUbl@cluster0.fi33ipb.mongodb.net/"
@@ -19,7 +20,7 @@ async function main(){
   const collection = db.collection("pontuacoes");
 
   const app = express();
-
+  app.use(cors());
   app.use(express.json());
 
 
@@ -48,7 +49,7 @@ async function main(){
 
   }); 
 
-  app.listen(process.env.PORT || 3000, ()=>{
+  app.listen(process.env.PORT || 3333, ()=>{
     console.log("Aplicação rodando");
   });
 
