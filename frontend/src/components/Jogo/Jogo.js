@@ -42,7 +42,7 @@ function Jogo(props) {
             }, 100);
             return () => clearInterval(interval);
         },
-        [estaMorto]
+        [estaMorto, props]
     );
 
     useEffect(
@@ -53,12 +53,12 @@ function Jogo(props) {
             }
 
             setPontos(pontos + 1);
-
+            props.onPontos(pontos+1);
             }, 500);
             
             return () => clearInterval(interval);
         }, 
-        [estaMorto, pontos]
+        [estaMorto, pontos, props]
     );
 
 
